@@ -161,7 +161,9 @@ var create = (function() {
         } else {
             serial.write(new Buffer([cmd].concat(payload)));
         }
-        serial.flush();
+        serial.flush(function(err, result) {
+          // Probably shouldn't get anything here.
+        });
     }
 
     function initCreate() {

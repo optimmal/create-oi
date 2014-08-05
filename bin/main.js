@@ -21,12 +21,13 @@ var create = (function() {
     };
 
     var sensors = { 
-        BUMP_WDROP: 7,
-        WALL:       8,
-        BUTTONS:    18,
-        DISTANCE:   19,
-        ANGLE:      20,
-        VOLTAGE:    22
+        BUMP_WDROP:  7,
+        WALL:        8,
+        WALL_SIGNAL: 27,
+        BUTTONS:     18,
+        DISTANCE:    19,
+        ANGLE:       20,
+        VOLTAGE:     22
     };
 
     // helpers
@@ -144,6 +145,18 @@ var create = (function() {
                         idx += 3;
                         sensorMsgsParsed++;
                     break;
+                    case sensors.WALL:
+                        var val = currPkt[idx+1];
+                        if (val != 0) { eventer.emit('wall') }
+                        idx += 2;
+                        sensorMsgsParsed++;
+                    break;
+                    case sensors.WALL_SIGNAL:
+                        var val = (currPkt[idx+1] << 8) | currPkt[idx+2];
+                        eventer.emit('wall_signal', { level: val });
+                        idx += 3;
+                        sensorMsgsParsed++;
+                    break;
                     default:
                         console.log("WARN: couldn't parse incomming OI pkt");
                         idx++; // prevents inf loop
@@ -187,7 +200,7 @@ var create = (function() {
         })
         .then(module.wait)
         .then(function() {
-            sendCommand(cmds.STREAM, [3, 7, 19, 20]);
+            sendCommand(cmds.STREAM, [5, 7, 8, 19, 20, 27]);
             return 100;
         })
         .then(module.wait)

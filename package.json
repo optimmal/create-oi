@@ -9,7 +9,10 @@
   "scripts": {
     "test": "buster test"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:FellowRoboticists/create-oi.git"
+  },
   "keywords": [
     "robot",
     "create",

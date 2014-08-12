@@ -1,8 +1,8 @@
 var create = (function() {
     var module = {};
     var SerialPort = require("serialport").SerialPort;
-    var emitter = require('events').EventEmitter;
-    var eventer = new emitter();
+    var Emitter = require('events').EventEmitter;
+    var eventer = new Emitter();
     var Q = require("q");
     var DRV_FWD_RAD = 0x7fff;
     var prior = Q.resolve();

@@ -210,7 +210,7 @@ var create = (function() {
     };
 
     module.init = function(settings) {
-        serial = new SerialPort(settings.serialport, { baudrate: 57600, bufferSize: 5 });
+        serial = new SerialPort(settings.serialport, { baudrate: 115200, bufferSize: 5 });
 
         // internal serial event handlers
 
